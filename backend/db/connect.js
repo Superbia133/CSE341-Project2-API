@@ -13,7 +13,7 @@ const initDb = async (callback) => {
 
   try {
     const client = await MongoClient.connect(process.env.MONGODB_URI);
-    _db = client.db('mawyim'); // use your actual DB name
+    _db = client.db('project2'); // ✅ FIXED: use correct DB name
     console.log('Database initialized');
     callback(null, _db);
   } catch (err) {

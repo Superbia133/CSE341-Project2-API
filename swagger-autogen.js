@@ -2,11 +2,11 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'Countries API',
-    description: 'API for managing countries and related people',
+    title: 'Mawyim World API',
+    description: 'Project 2 API for managing countries and people in the world of Mawyim',
   },
-  host: 'localhost:3000', // Change to your Render URL when deploying
-  schemes: ['http'],
+  host: 'localhost:3000', // Change this to your Render domain when deployed
+  schemes: ['http'], // 'https' for deployed version
   definitions: {
     Country: {
       $name: 'Fortia',
@@ -26,6 +26,6 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';
-const endpointsFiles = ['./server.js']; // Make sure this path matches your entry file
+const endpointsFiles = ['./server.js'];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
