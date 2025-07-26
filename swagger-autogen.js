@@ -5,8 +5,8 @@ const doc = {
     title: 'Mawyim World API',
     description: 'Project 2 API for managing countries and people in the world of Mawyim',
   },
-  host: 'localhost:3000', // Change this to your Render domain when deployed
-  schemes: ['http'], // 'https' for deployed version
+  host: 'cse341-project2-api.onrender.com', // ✅ Render domain
+  schemes: ['https'], // ✅ Use HTTPS in production
   definitions: {
     Country: {
       $name: 'Fortia',
@@ -26,6 +26,6 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';
-const endpointsFiles = ['./server.js'];
+const endpointsFiles = ['./server.js']; // Entry point
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
