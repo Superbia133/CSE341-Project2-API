@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const countriesController = require('../controllers/countriesController');
+const { verifyToken } = require('../middleware/authMiddleware');
 
 /**
  * @swagger
@@ -41,6 +42,8 @@ router.get('/:id', countriesController.getCountryById);
  * @swagger
  * /countries/:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new country
  *     tags: [Countries]
  *     requestBody:
@@ -54,15 +57,19 @@ router.get('/:id', countriesController.getCountryById);
  *         description: Created
  *       400:
  *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Internal Server Error
  */
-router.post('/', countriesController.createCountry);
+router.post('/', verifyToken, countriesController.createCountry);
 
 /**
  * @swagger
  * /countries/{id}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Update a country by ID
  *     tags: [Countries]
  *     parameters:
@@ -83,15 +90,19 @@ router.post('/', countriesController.createCountry);
  *         description: Country updated
  *       400:
  *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Country not found
  */
-router.put('/:id', countriesController.updateCountry);
+router.put('/:id', verifyToken, countriesController.updateCountry);
 
 /**
  * @swagger
  * /countries/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a country
  *     tags: [Countries]
  *     parameters:
@@ -104,9 +115,11 @@ router.put('/:id', countriesController.updateCountry);
  *     responses:
  *       204:
  *         description: Country deleted
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Country not found
  */
-router.delete('/:id', countriesController.deleteCountry);
+router.delete('/:id', verifyToken, countriesController.deleteCountry);
 
 module.exports = router;

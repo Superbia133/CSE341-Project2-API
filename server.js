@@ -3,7 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { initDb } = require('./backend/db/connect');
 const countryRoutes = require('./backend/routes/countries');
-const peopleRoutes = require('./backend/routes/people'); // ✅ include people routes
+const peopleRoutes = require('./backend/routes/people');
+const authRoutes = require('./backend/routes/auth'); // ✅ NEW
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
@@ -18,7 +19,8 @@ app.use(express.json());
 
 // Routes
 app.use('/countries', countryRoutes);
-app.use('/people', peopleRoutes); // ✅ register people route
+app.use('/people', peopleRoutes);
+app.use('/auth', authRoutes); // ✅ NEW
 
 // Swagger Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

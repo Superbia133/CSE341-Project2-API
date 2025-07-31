@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const peopleController = require('../controllers/peopleController');
+const { verifyToken } = require('../middleware/authMiddleware');
 
 /**
  * @swagger
@@ -48,6 +49,8 @@ router.get('/:id', peopleController.getPersonById);
  * @swagger
  * /people/:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new person
  *     tags: [People]
  *     requestBody:
@@ -78,13 +81,17 @@ router.get('/:id', peopleController.getPersonById);
  *         description: Person created
  *       400:
  *         description: Missing or invalid input
+ *       401:
+ *         description: Unauthorized
  */
-router.post('/', peopleController.createPerson);
+router.post('/', verifyToken, peopleController.createPerson);
 
 /**
  * @swagger
  * /people/{id}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Update an existing person
  *     tags: [People]
  *     parameters:
@@ -113,15 +120,19 @@ router.post('/', peopleController.createPerson);
  *     responses:
  *       200:
  *         description: Person updated
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Person not found
  */
-router.put('/:id', peopleController.updatePerson);
+router.put('/:id', verifyToken, peopleController.updatePerson);
 
 /**
  * @swagger
  * /people/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a person by ID
  *     tags: [People]
  *     parameters:
@@ -133,9 +144,11 @@ router.put('/:id', peopleController.updatePerson);
  *     responses:
  *       200:
  *         description: Person deleted
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Person not found
  */
-router.delete('/:id', peopleController.deletePerson);
+router.delete('/:id', verifyToken, peopleController.deletePerson);
 
 module.exports = router;
